@@ -24,22 +24,25 @@ export default function ToggleButton() {
         </>
       )}
 
-      {/* Cloud shadow - darker copy behind */}
-      {/* <div className="absolute flex items-start" style={{ transform: 'translate(-4px, -8px)' }}>
-        <div className="w-5 h-5 rounded-full ml-10 mt-9.75" style={{ backgroundColor: '#ccc' }} />
-        <div className="w-4 h-4 rounded-full -ml-1 mt-11" style={{ backgroundColor: '#ccc' }} />
-        <div className="w-5 h-5 rounded-full -ml-2.5 mt-9.25" style={{ backgroundColor: '#ccc' }} />
-        <div className="w-10 h-10 rounded-full -ml-2.5 mt-4.75" style={{ backgroundColor: '#ccc' }} />
-      </div> */}
-
-      {/* Cloud circles on the right */}
-      <div className="absolute flex items-start">
-        <div className="w-5 h-5 rounded-full bg-white ml-10 mt-9.75" />
-        <div className="w-4 h-4 rounded-full bg-white -ml-1 mt-11" />
-        <div className="w-5 h-5 rounded-full bg-white -ml-2.5 mt-9.25" />
-        <div className="w-10 h-10 rounded-full bg-white -ml-2.5 mt-4.75" />
+      {/* Cloud shadows with rotation - darker copy offset behind */}
+      <div className="absolute inset-0" style={{ transform: `rotate(2deg)`, transformOrigin: 'center' }}>
+        <div className="rounded-full absolute" style={{ left: `3px`, top: `40px`, width: '20px', height: '20px', backgroundColor: '#ADAEBD' }} />
+        <div className="rounded-full absolute" style={{ left: `18px`, top: `33px`, width: '30px', height: '30px', backgroundColor: '#ADAEBD' }} />
+        <div className="rounded-full absolute" style={{ left: `41px`, top: `30px`, width: '20px', height: '20px', backgroundColor: '#ADAEBD' }} />
+        <div className="rounded-full absolute" style={{ left: `49px`, top: `30px`, width: '27px', height: '27px', backgroundColor: '#ADAEBD' }} />
+        <div className="rounded-full absolute" style={{ left: `57px`, top: `21px`, width: '30px', height: '30px', backgroundColor: '#ADAEBD' }} />
+        <div className="rounded-full absolute" style={{ left: `67px`, top: `15px`, width: '27px', height: '27px', backgroundColor: '#ADAEBD' }} />
+        <div className="rounded-full absolute" style={{ left: `77px`, top: `0px`, width: '32px', height: '32px', backgroundColor: '#ADAEBD' }} />
       </div>
 
+      {/* Cloud circles - each with x, y, size */}
+      <div className="rounded-full bg-white absolute" style={{ left: '3px', top: '43px', width: '20px', height: '20px' }} />
+      <div className="rounded-full bg-white absolute" style={{ left: '18px', top: '40px', width: '24px', height: '24px' }} />
+      <div className="rounded-full bg-white absolute" style={{ left: '35px', top: '37px', width: '22px', height: '22px' }} />
+      <div className="rounded-full bg-white absolute" style={{ left: '47px', top: '41px', width: '20px', height: '20px' }} />
+      <div className="rounded-full bg-white absolute" style={{ left: '58px', top: '36px', width: '22px', height: '22px' }} />
+      <div className="rounded-full bg-white absolute" style={{ left: '70px', top: '25px', width: '28px', height: '28px' }} />
+      <div className="rounded-full bg-white absolute" style={{ left: '78px', top: '10px', width: '32px', height: '32px' }} />
       <span
         className={`
           inline-block h-10 w-10 transform rounded-full
