@@ -16,6 +16,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) and click the toggle. Watch the sun set and rise.
 
+## Design Notes
+
+Some design choices have been made that deviate from the original video. These modifications were implemented to enhance the visual appeal and technical implementation while maintaining the core concept of the designer vs developer meme.
+
 ## Tech Stack
 
 - **Next.js 15.5.4** - React framework with App Router and Server Components
