@@ -4,6 +4,14 @@ This project a developer's attempt at recreating the UX Design for an animated l
 
 Original Video: https://www.youtube.com/shorts/Vb3jcxNt92o
 
+## Demo
+
+<div align="center">
+
+![DvD Demo](https://github.com/NotYuSheng/designer-vs-developer/blob/main/sample-files/DEMO.gif) <br>
+
+</div>
+
 ## Getting Started
 
 ```bash
