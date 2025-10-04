@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+interface ToggleButtonProps {
+  isOn: boolean
+  onToggle: () => void
+}
 
-export default function ToggleButton() {
-  const [isOn, setIsOn] = useState(false)
+export default function ToggleButton({ isOn, onToggle }: ToggleButtonProps) {
 
   // Star component - square with circular cuts at corners creating 4-pointed star
   const Star = ({ size, x, y }: { size: number; x: number; y: number }) => {
@@ -29,7 +31,7 @@ export default function ToggleButton() {
 
   return (
     <button
-      onClick={() => setIsOn(!isOn)}
+      onClick={onToggle}
       className={`
         relative inline-flex h-12 w-24 items-center rounded-full
         transition-colors duration-300 ease-in-out focus:outline-none overflow-hidden
@@ -37,23 +39,6 @@ export default function ToggleButton() {
       `}
       style={!isOn ? { backgroundColor: '#0467C4' } : {}}
     >
-      {/* Layered gradient curves for sky - light mode */}
-      {!isOn && (
-        <>
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#1D75CC', clipPath: 'ellipse(40% 100% at 40% 50%)', zIndex: 1 }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#3E84D6', clipPath: 'ellipse(55% 100% at 13% 50%)', zIndex: 1 }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#5494DC', clipPath: 'ellipse(70% 100% at -15% 50%)', zIndex: 1 }} />
-        </>
-      )}
-
-      {/* Layered gradient curves for sky - dark mode (inverse direction) */}
-      {isOn && (
-        <>
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#1a1f2e', clipPath: 'ellipse(40% 100% at 52% 50%)', zIndex: 1 }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#2a2f3e', clipPath: 'ellipse(55% 100% at 79% 50%)', zIndex: 1 }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#3a3f4e', clipPath: 'ellipse(70% 100% at 109% 50%)', zIndex: 1 }} />
-        </>
-      )}
 
       {/* Cloud shadows with rotation - darker copy offset behind */}
       <div
@@ -61,8 +46,8 @@ export default function ToggleButton() {
         style={{
           transform: `rotate(2deg) translateY(${isOn ? '60px' : '0px'})`,
           transformOrigin: 'center',
-          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)',
-          zIndex: 2
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.3, 0.265, 1.3)',
+          zIndex: 0
         }}
       >
         <div className="rounded-full absolute" style={{ left: `3px`, top: `40px`, width: '20px', height: '20px', backgroundColor: '#B8D2F1' }} />
@@ -79,7 +64,7 @@ export default function ToggleButton() {
         className="absolute inset-0 transition-transform duration-500"
         style={{
           transform: `translateY(${isOn ? '60px' : '0px'})`,
-          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)',
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.3, 0.265, 1.3)',
           zIndex: 3
         }}
       >
@@ -97,7 +82,7 @@ export default function ToggleButton() {
         className="absolute inset-0 transition-transform duration-500"
         style={{
           transform: `translateY(${isOn ? '0px' : '-60px'})`,
-          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)',
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.3, 0.265, 1.3)',
           zIndex: 4
         }}
       >
@@ -125,17 +110,36 @@ export default function ToggleButton() {
         }}
       />
 
+      {/* Gradient curves container - moves with camera, symmetrical */}
+      <div
+        className="absolute transition-all duration-700 pointer-events-none"
+        style={{
+          left: isOn ? '-52px' : '-100px',
+          top: '-76px',
+          width: '300px',
+          height: '200px',
+          zIndex: 1,
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.3, 0.265, 1.4)'
+        }}
+      >
+        {/* Layered gradient ellipses - centered around camera position */}
+        {/* Camera at button 4px + container offset 100px = 104px from container left, + 20px radius = 124px center */}
+        <div className="absolute inset-0 opacity-10 transition-colors duration-700" style={{ backgroundColor: isOn ? '#FFFFFF' : '#FFFFFF', clipPath: 'ellipse(8% 40% at 124px 100px)' }} />
+        <div className="absolute inset-0 opacity-10 transition-colors duration-700" style={{ backgroundColor: isOn ? '#FFFFFF' : '#FFFFFF', clipPath: 'ellipse(12% 50% at 124px 100px)' }} />
+        <div className="absolute inset-0 opacity-10 transition-colors duration-700" style={{ backgroundColor: isOn ? '#FFFFFF' : '#FFFFFF', clipPath: 'ellipse(16% 60% at 124px 100px)' }} />
+      </div>
+
       {/* The knob/camera - moves left to right with overflow:hidden to clip the view */}
       <div
         className="absolute h-10 w-10 rounded-full overflow-hidden transition-all duration-700"
         style={{
-          left: isOn ? '48px' : '4px',
+          left: isOn ? '52px' : '4px',
           top: '4px',
           zIndex: 10,
-          transitionTimingFunction: 'cubic-bezier(0.68, -0.15, 0.265, 1.15)'
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.3, 0.265, 1.4)'
         }}
       >
-        {/* Fixed base layer - always shows sun's yellow color */}
+        {/* Fixed base layer - always shows sun's orange/yellow color */}
         <div
           className="absolute rounded-full"
           style={{
@@ -159,13 +163,13 @@ export default function ToggleButton() {
             transitionTimingFunction: 'cubic-bezier(0.68, -0.15, 0.265, 1.15)'
           }}
         >
-          {/* Sun yellow overlay - starts at position 0 (visible in camera at light mode) */}
+          {/* Sun yellow overlay - creates shadow effect with offset positioning */}
           <div
             className="absolute rounded-full bg-yellow-400"
             style={{
               width: '40px',
               height: '40px',
-              left: '0px',
+              left: '-2px',
               top: '-2px'
             }}
           />
@@ -183,13 +187,13 @@ export default function ToggleButton() {
             transitionTimingFunction: 'cubic-bezier(0.68, -0.15, 0.265, 1.15)'
           }}
         >
-          {/* Moon - starts at position 56px (outside camera view in light mode) */}
+          {/* Moon - starts at position 40px (outside camera view in light mode) */}
           <div
             className="absolute rounded-full overflow-hidden"
             style={{
               backgroundColor: '#7E8696',
-              width: '40px',
-              height: '40px',
+              width: '40.5px',
+              height: '40.5px',
               left: '40px',
               top: '0px'
             }}
