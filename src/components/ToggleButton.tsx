@@ -57,10 +57,11 @@ export default function ToggleButton() {
 
       {/* Cloud shadows with rotation - darker copy offset behind */}
       <div
-        className="absolute inset-0 transition-transform duration-300 ease-in-out"
+        className="absolute inset-0 transition-transform duration-500"
         style={{
           transform: `rotate(2deg) translateY(${isOn ? '60px' : '0px'})`,
-          transformOrigin: 'center'
+          transformOrigin: 'center',
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)'
         }}
       >
         <div className="rounded-full absolute" style={{ left: `3px`, top: `40px`, width: '20px', height: '20px', backgroundColor: '#B8D2F1' }} />
@@ -74,8 +75,11 @@ export default function ToggleButton() {
 
       {/* Cloud circles - each with x, y, size */}
       <div
-        className="absolute inset-0 transition-transform duration-300 ease-in-out"
-        style={{ transform: `translateY(${isOn ? '60px' : '0px'})` }}
+        className="absolute inset-0 transition-transform duration-500"
+        style={{
+          transform: `translateY(${isOn ? '60px' : '0px'})`,
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)'
+        }}
       >
         <div className="rounded-full bg-white absolute" style={{ left: '3px', top: '43px', width: '20px', height: '20px' }} />
         <div className="rounded-full bg-white absolute" style={{ left: '18px', top: '40px', width: '24px', height: '24px' }} />
@@ -86,10 +90,13 @@ export default function ToggleButton() {
         <div className="rounded-full bg-white absolute" style={{ left: '78px', top: '10px', width: '32px', height: '32px' }} />
       </div>
 
-      {/* Stars - move upwards when transitioning to light mode */}
+      {/* Stars - move upwards when transitioning to light mode with bounce */}
       <div
-        className="absolute inset-0 transition-transform duration-300 ease-in-out"
-        style={{ transform: `translateY(${isOn ? '0px' : '-60px'})` }}
+        className="absolute inset-0 transition-transform duration-500"
+        style={{
+          transform: `translateY(${isOn ? '0px' : '-60px'})`,
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)'
+        }}
       >
         <Star size={6} x={15} y={6} />
         <Star size={3} x={7} y={15} />
@@ -117,7 +124,7 @@ export default function ToggleButton() {
       <span
         className={`
           relative inline-block h-10 w-10 transform rounded-full overflow-hidden
-          transition-all duration-300 ease-in-out
+          transition-all duration-500 ease-in-out
           ${isOn ? 'translate-x-12' : 'translate-x-1'}
         `}
         style={!isOn ? { backgroundColor: '#E5A835' } : { backgroundColor: '#7E8696' }}
