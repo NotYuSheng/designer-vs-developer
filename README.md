@@ -36,18 +36,6 @@ Some design choices have been made that deviate from the original video. These m
 - **Tailwind CSS v4** - Utility-first CSS framework
 - **Turbopack** - High-performance build tool
 
-## Project Structure
-
-```
-src/
-├── app/
-│   ├── layout.tsx      # Root layout with fonts
-│   ├── page.tsx        # Home page
-│   └── globals.css     # Global styles
-└── components/
-    └── ToggleButton.tsx # The star of the show
-```
-
 ## Commands
 
 ```bash
