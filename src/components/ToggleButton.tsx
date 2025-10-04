@@ -32,9 +32,10 @@ export default function ToggleButton({ isOn, onToggle }: ToggleButtonProps) {
   return (
     <button
       onClick={onToggle}
+      aria-label={isOn ? 'Switch to light mode' : 'Switch to dark mode'}
       className={`
         relative inline-flex h-12 w-24 items-center rounded-full
-        transition-colors duration-300 ease-in-out focus:outline-none overflow-hidden
+        transition-colors duration-300 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 overflow-hidden
         ${isOn ? 'bg-gray-900' : ''}
       `}
       style={!isOn ? { backgroundColor: '#0467C4' } : {}}
