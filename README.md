@@ -1,6 +1,6 @@
 # Designer vs Developer
 
-This project a developer's attempt at recreating the UX Design for an animated light and dark mode toggle switch.
+This project a developer's attempt at recreating the Graphic Design for an animated light and dark mode toggle switch.
 
 Original Video: https://www.youtube.com/watch?v=0Bxs9XGK5fE
 
