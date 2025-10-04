@@ -2,7 +2,7 @@
 
 This project a developer's attempt at recreating the UX Design for an animated light and dark mode toggle switch.
 
-Original Video: https://www.youtube.com/shorts/Vb3jcxNt92o
+Original Video: https://www.tiktok.com/@verticalinstitute/video/7311654102423883016
 
 ## Getting Started
 
