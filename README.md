@@ -4,6 +4,14 @@ This project a developer's attempt at recreating the UX Design for an animated l
 
 Original Video: https://www.tiktok.com/@verticalinstitute/video/7311654102423883016
 
+## Demo
+
+<div align="center">
+
+![DvD Demo](https://github.com/NotYuSheng/designer-vs-developer/blob/main/sample-files/DEMO.gif) <br>
+
+</div>
+
 ## Getting Started
 
 ```bash
@@ -15,6 +23,10 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) and click the toggle. Watch the sun set and rise.
+
+## Design Notes
+
+Some design choices have been made that deviate from the original video. These modifications were implemented to enhance the visual appeal and technical implementation while maintaining the core concept of the designer vs developer meme.
 
 ## Tech Stack
 
