@@ -1,4 +1,4 @@
-# Designer vs Developer 🎨 vs 💻
+# Designer vs Developer
 
 This project a developer's attempt at recreating the UX Design for an animated light and dark mode toggle switch.
 
