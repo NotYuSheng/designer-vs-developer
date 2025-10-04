@@ -1,33 +1,36 @@
 'use client'
 
+import { useId } from 'react'
+
 interface ToggleButtonProps {
   isOn: boolean
   onToggle: () => void
 }
 
-export default function ToggleButton({ isOn, onToggle }: ToggleButtonProps) {
+// Star component - square with circular cuts at corners creating 4-pointed star
+const Star = ({ size, x, y, uniqueId }: { size: number; x: number; y: number; uniqueId: string }) => {
+  const circleSize = size * 0.99 // Size of cutting circles
+  const maskId = `star-mask-${uniqueId}-${x}-${y}` // Unique ID for this star's mask
+  return (
+    <div className="absolute" style={{ left: `${x}px`, top: `${y}px`, width: `${size}px`, height: `${size}px` }}>
+      <svg width={size} height={size} className="absolute">
+        <defs>
+          <mask id={maskId}>
+            <rect width={size} height={size} fill="white" />
+            <circle cx="0" cy="0" r={circleSize/2} fill="black" />
+            <circle cx={size} cy="0" r={circleSize/2} fill="black" />
+            <circle cx="0" cy={size} r={circleSize/2} fill="black" />
+            <circle cx={size} cy={size} r={circleSize/2} fill="black" />
+          </mask>
+        </defs>
+        <rect width={size} height={size} fill="white" mask={`url(#${maskId})`} />
+      </svg>
+    </div>
+  )
+}
 
-  // Star component - square with circular cuts at corners creating 4-pointed star
-  const Star = ({ size, x, y }: { size: number; x: number; y: number }) => {
-    const circleSize = size * 0.99 // Size of cutting circles
-    const maskId = `star-mask-${x}-${y}` // Unique ID for this star's mask
-    return (
-      <div className="absolute" style={{ left: `${x}px`, top: `${y}px`, width: `${size}px`, height: `${size}px` }}>
-        <svg width={size} height={size} className="absolute">
-          <defs>
-            <mask id={maskId}>
-              <rect width={size} height={size} fill="white" />
-              <circle cx="0" cy="0" r={circleSize/2} fill="black" />
-              <circle cx={size} cy="0" r={circleSize/2} fill="black" />
-              <circle cx="0" cy={size} r={circleSize/2} fill="black" />
-              <circle cx={size} cy={size} r={circleSize/2} fill="black" />
-            </mask>
-          </defs>
-          <rect width={size} height={size} fill="white" mask={`url(#${maskId})`} />
-        </svg>
-      </div>
-    )
-  }
+export default function ToggleButton({ isOn, onToggle }: ToggleButtonProps) {
+  const uniqueId = useId()
 
   return (
     <button
@@ -87,17 +90,17 @@ export default function ToggleButton({ isOn, onToggle }: ToggleButtonProps) {
           zIndex: 4
         }}
       >
-        <Star size={6} x={15} y={6} />
-        <Star size={3} x={7} y={15} />
-        <Star size={2} x={9} y={35} />
-        <Star size={2} x={12} y={32} />
-        <Star size={3} x={18} y={19} />
-        <Star size={2} x={20} y={38} />
-        <Star size={2} x={36} y={11} />
-        <Star size={2} x={32} y={22} />
-        <Star size={4} x={34} y={31} />
-        <Star size={4} x={43} y={13} />
-        <Star size={2} x={40} y={26} />
+        <Star size={6} x={15} y={6} uniqueId={uniqueId} />
+        <Star size={3} x={7} y={15} uniqueId={uniqueId} />
+        <Star size={2} x={9} y={35} uniqueId={uniqueId} />
+        <Star size={2} x={12} y={32} uniqueId={uniqueId} />
+        <Star size={3} x={18} y={19} uniqueId={uniqueId} />
+        <Star size={2} x={20} y={38} uniqueId={uniqueId} />
+        <Star size={2} x={36} y={11} uniqueId={uniqueId} />
+        <Star size={2} x={32} y={22} uniqueId={uniqueId} />
+        <Star size={4} x={34} y={31} uniqueId={uniqueId} />
+        <Star size={4} x={43} y={13} uniqueId={uniqueId} />
+        <Star size={2} x={40} y={26} uniqueId={uniqueId} />
       </div>
 
       {/* Depth shadow overlay - creates inset shadow for depth */}
