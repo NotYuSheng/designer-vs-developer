@@ -40,18 +40,18 @@ export default function ToggleButton() {
       {/* Layered gradient curves for sky - light mode */}
       {!isOn && (
         <>
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#1D75CC', clipPath: 'ellipse(40% 100% at 40% 50%)' }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#3E84D6', clipPath: 'ellipse(55% 100% at 13% 50%)' }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#5494DC', clipPath: 'ellipse(70% 100% at -15% 50%)' }} />
+          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#1D75CC', clipPath: 'ellipse(40% 100% at 40% 50%)', zIndex: 1 }} />
+          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#3E84D6', clipPath: 'ellipse(55% 100% at 13% 50%)', zIndex: 1 }} />
+          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#5494DC', clipPath: 'ellipse(70% 100% at -15% 50%)', zIndex: 1 }} />
         </>
       )}
 
       {/* Layered gradient curves for sky - dark mode (inverse direction) */}
       {isOn && (
         <>
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#1a1f2e', clipPath: 'ellipse(40% 100% at 52% 50%)' }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#2a2f3e', clipPath: 'ellipse(55% 100% at 79% 50%)' }} />
-          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#3a3f4e', clipPath: 'ellipse(70% 100% at 109% 50%)' }} />
+          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#1a1f2e', clipPath: 'ellipse(40% 100% at 52% 50%)', zIndex: 1 }} />
+          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#2a2f3e', clipPath: 'ellipse(55% 100% at 79% 50%)', zIndex: 1 }} />
+          <div className="absolute inset-0 rounded-full opacity-100" style={{ backgroundColor: '#3a3f4e', clipPath: 'ellipse(70% 100% at 109% 50%)', zIndex: 1 }} />
         </>
       )}
 
@@ -61,7 +61,8 @@ export default function ToggleButton() {
         style={{
           transform: `rotate(2deg) translateY(${isOn ? '60px' : '0px'})`,
           transformOrigin: 'center',
-          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)'
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)',
+          zIndex: 2
         }}
       >
         <div className="rounded-full absolute" style={{ left: `3px`, top: `40px`, width: '20px', height: '20px', backgroundColor: '#B8D2F1' }} />
@@ -78,7 +79,8 @@ export default function ToggleButton() {
         className="absolute inset-0 transition-transform duration-500"
         style={{
           transform: `translateY(${isOn ? '60px' : '0px'})`,
-          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)'
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)',
+          zIndex: 3
         }}
       >
         <div className="rounded-full bg-white absolute" style={{ left: '3px', top: '43px', width: '20px', height: '20px' }} />
@@ -95,7 +97,8 @@ export default function ToggleButton() {
         className="absolute inset-0 transition-transform duration-500"
         style={{
           transform: `translateY(${isOn ? '0px' : '-60px'})`,
-          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)'
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.25, 0.265, 1.25)',
+          zIndex: 4
         }}
       >
         <Star size={6} x={15} y={6} />
@@ -117,49 +120,97 @@ export default function ToggleButton() {
         style={{
           boxShadow: isOn
             ? 'inset 0 3px 4px rgba(0, 0, 0, 0.4)'
-            : 'inset 0 3px 4px rgba(0, 0, 0, 0.4), inset 0 -2px 4px rgba(255, 255, 255, 0.6)'
+            : 'inset 0 3px 4px rgba(0, 0, 0, 0.4), inset 0 -2px 4px rgba(255, 255, 255, 0.6)',
+          zIndex: 5
         }}
       />
 
-      <span
-        className={`
-          relative inline-block h-10 w-10 transform rounded-full overflow-hidden
-          transition-all duration-500 ease-in-out
-          ${isOn ? 'translate-x-12' : 'translate-x-1'}
-        `}
-        style={!isOn ? { backgroundColor: '#E5A835' } : { backgroundColor: '#7E8696' }}
+      {/* The knob/camera - moves left to right with overflow:hidden to clip the view */}
+      <div
+        className="absolute h-10 w-10 rounded-full overflow-hidden transition-all duration-700"
+        style={{
+          left: isOn ? '48px' : '4px',
+          top: '4px',
+          zIndex: 10,
+          transitionTimingFunction: 'cubic-bezier(0.68, -0.15, 0.265, 1.15)'
+        }}
       >
-        {/* Lighter sun circle offset to top-left */}
-        {!isOn && (
+        {/* Fixed base layer - always shows sun's yellow color */}
+        <div
+          className="absolute rounded-full"
+          style={{
+            backgroundColor: '#E5A835',
+            width: '40px',
+            height: '40px',
+            left: '0px',
+            top: '0px'
+          }}
+        />
+
+        {/* Sun's yellow overlay - moves left out of view in dark mode */}
+        <div
+          className="absolute transition-transform duration-700"
+          style={{
+            left: '0px',
+            top: '0px',
+            width: '100px',
+            height: '48px',
+            transform: `translateX(${isOn ? '-8px' : '0px'})`,
+            transitionTimingFunction: 'cubic-bezier(0.68, -0.15, 0.265, 1.15)'
+          }}
+        >
+          {/* Sun yellow overlay - starts at position 0 (visible in camera at light mode) */}
           <div
             className="absolute rounded-full bg-yellow-400"
             style={{
               width: '40px',
               height: '40px',
-              top: '-2px',
-              left: '-2px'
+              left: '0px',
+              top: '-2px'
             }}
           />
-        )}
+        </div>
 
-        {/* Lighter moon circle offset to top-right */}
-        {isOn && (
+        {/* Moving content layer - moon slides over the yellow base */}
+        <div
+          className="absolute transition-transform duration-700"
+          style={{
+            left: '0px',
+            top: '0px',
+            width: '100px',
+            height: '48px',
+            transform: `translateX(${isOn ? '-40px' : '0px'})`,
+            transitionTimingFunction: 'cubic-bezier(0.68, -0.15, 0.265, 1.15)'
+          }}
+        >
+          {/* Moon - starts at position 56px (outside camera view in light mode) */}
           <div
-            className="absolute rounded-full bg-gray-400"
+            className="absolute rounded-full overflow-hidden"
             style={{
+              backgroundColor: '#7E8696',
               width: '40px',
               height: '40px',
-              top: '-2px',
-              right: '-2px'
+              left: '40px',
+              top: '0px'
             }}
           >
-            {/* Moon craters - darker circles with inset shadow */}
-            <div className="absolute rounded-full" style={{ width: '13px', height: '13px', backgroundColor: '#7E8696', left: '5px', top: '18px', boxShadow: 'inset 0 2px 3px rgba(0, 0, 0, 0.4)' }} />
-            <div className="absolute rounded-full" style={{ width: '7px', height: '7px', backgroundColor: '#7E8696', left: '15px', top: '9px', boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.4)' }} />
-            <div className="absolute rounded-full" style={{ width: '8px', height: '8px', backgroundColor: '#7E8696', left: '23px', top: '26px', boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.4)' }} />
+            <div
+              className="absolute rounded-full bg-gray-400"
+              style={{
+                width: '40px',
+                height: '40px',
+                top: '-2px',
+                right: '-2px'
+              }}
+            >
+              {/* Moon craters - darker circles with inset shadow */}
+              <div className="absolute rounded-full" style={{ width: '13px', height: '13px', backgroundColor: '#7E8696', left: '5px', top: '18px', boxShadow: 'inset 0 2px 3px rgba(0, 0, 0, 0.4)' }} />
+              <div className="absolute rounded-full" style={{ width: '7px', height: '7px', backgroundColor: '#7E8696', left: '15px', top: '9px', boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.4)' }} />
+              <div className="absolute rounded-full" style={{ width: '8px', height: '8px', backgroundColor: '#7E8696', left: '23px', top: '26px', boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.4)' }} />
+            </div>
           </div>
-        )}
-      </span>
+        </div>
+      </div>
     </button>
   )
 }
